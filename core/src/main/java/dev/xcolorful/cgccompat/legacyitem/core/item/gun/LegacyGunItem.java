@@ -31,7 +31,7 @@ import dev.xcolorful.customgun.core.item.gun.GunItem;
 import dev.xcolorful.customgun.core.resource.instance.data.GunIndexInstance;
 import dev.xcolorful.customgun.core.util.NBTUtils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,16 +48,16 @@ public class LegacyGunItem extends GunItem {
     // --------IGunDataAccess--------
 
     @Override
-    public @NotNull ResourceLocation getGunLocation(ItemStack gunItem) {
+    public @NotNull Identifier getGunLocation(ItemStack gunItem) {
         var gunLocation = NBTUtils.getResourceLocation(gunItem, LegacyGunPropertyTag.GUN_LOCATION_OLD1);
         return gunLocation != null ? gunLocation : ResourceTag.NULL_LOCATION;
     }
     @Override
-    public void setGunLocation(ItemStack gunItem, ResourceLocation gunLocation) {
+    public void setGunLocation(ItemStack gunItem, Identifier gunLocation) {
         NBTUtils.setResourceLocation(gunItem, LegacyGunPropertyTag.GUN_LOCATION_OLD1, gunLocation);
     }
     @Override
-    public @NotNull ResourceLocation getGunDisplayLocation(ItemStack gunItem) {
+    public @NotNull Identifier getGunDisplayLocation(ItemStack gunItem) {
         var gunDisplayLocation = NBTUtils.getResourceLocation(gunItem, LegacyGunPropertyTag.GUN_DISPLAY_LOCATION_OLD1);
         if (gunDisplayLocation != null) return gunDisplayLocation;
 
@@ -68,7 +68,7 @@ public class LegacyGunItem extends GunItem {
         return gunIndexInstance.getPojo().getDisplayIndexLocation();
     }
     @Override
-    public void setGunDisplayLocation(ItemStack gunItem, ResourceLocation gunDisplayLocation) {
+    public void setGunDisplayLocation(ItemStack gunItem, Identifier gunDisplayLocation) {
         NBTUtils.setResourceLocation(gunItem, LegacyGunPropertyTag.GUN_DISPLAY_LOCATION_OLD1, gunDisplayLocation);
     }
 
@@ -264,7 +264,7 @@ public class LegacyGunItem extends GunItem {
             return AttachmentBuilder.create(dev.xcolorful.cgccompat.legacyitem.core.init.registry.ModItems.ATTACHMENT.get())
                     // 配件ResourceLocation
                     .setProperty(AttachmentProperty.ATTACHMENT_LOCATION,
-                            ResourceLocation.class,
+                            Identifier.class,
                             builtinAttachments.get(attachmentCategory))
                     // 配件类型
                     .setProperty(AttachmentProperty.ATTACHMENT_CATEGORY,
@@ -305,7 +305,7 @@ public class LegacyGunItem extends GunItem {
     }
 
     @Override
-    public @NotNull ResourceLocation getAttachmentLocation(ItemStack gunItem, AttachmentCategory attachmentCategory) {
+    public @NotNull Identifier getAttachmentLocation(ItemStack gunItem, AttachmentCategory attachmentCategory) {
         return LegacyAttachmentNBTAccessor.INSTANCE.getAttachmentLocation(this.getAttachmentCustomDataTag(gunItem, attachmentCategory));
     }
 

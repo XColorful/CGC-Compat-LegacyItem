@@ -12,7 +12,7 @@ import dev.xcolorful.cgccompat.legacyitem.core.api.minecraft.item.LegacyItemType
 import dev.xcolorful.customgun.core.init.registry.ModItems;
 import dev.xcolorful.customgun.core.item.attachment.AttachmentItem;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class LegacyAttachmentItem extends AttachmentItem implements LegacyAttachmentNBTAccessor {
@@ -27,11 +27,11 @@ public class LegacyAttachmentItem extends AttachmentItem implements LegacyAttach
     // --------IAttachmentNBTAccess--------
 
     @Override
-    public @NotNull ResourceLocation getAttachmentLocation(CompoundTag attachmentCustomDataTag) {
+    public @NotNull Identifier getAttachmentLocation(CompoundTag attachmentCustomDataTag) {
         return LegacyAttachmentNBTAccessor.super.getAttachmentLocation(attachmentCustomDataTag);
     }
     @Override
-    public void setAttachmentLocation(CompoundTag attachmentCustomDataTag, ResourceLocation attachmentLocation) {
+    public void setAttachmentLocation(CompoundTag attachmentCustomDataTag, Identifier attachmentLocation) {
         LegacyAttachmentNBTAccessor.super.setAttachmentLocation(attachmentCustomDataTag, attachmentLocation);
     }
 

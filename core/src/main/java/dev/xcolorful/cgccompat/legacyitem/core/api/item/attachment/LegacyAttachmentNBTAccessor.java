@@ -17,7 +17,7 @@ import dev.xcolorful.customgun.core.resource.data.index.AttachmentIndex;
 import dev.xcolorful.customgun.core.resource.instance.data.AttachmentIndexInstance;
 import dev.xcolorful.customgun.core.util.NBTUtils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +47,7 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
 //    写的时候不增加层级（防止反复装卸配件无限扩大NBT）
 //    LegacyGunItem卸下来的配件是Legacy的，还需要防止装上新的配件再卸下后丢信息，所以还要先检查新格式；但是不按新格式写，避免旧基础设施识别不到
     @Override
-    default @NotNull ResourceLocation getAttachmentLocation(CompoundTag attachmentCustomDataTag) {
+    default @NotNull Identifier getAttachmentLocation(CompoundTag attachmentCustomDataTag) {
         var attachmentLocation = NBTUtils.getResourceLocation(attachmentCustomDataTag, AttachmentProperty.ATTACHMENT_LOCATION.getTagName());
         if (attachmentLocation != null) return attachmentLocation;
 
@@ -59,7 +59,7 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
         return attachmentLocation != null ? attachmentLocation : ResourceTag.NULL_LOCATION;
     }
     @Override
-    default void setAttachmentLocation(CompoundTag attachmentCustomDataTag, ResourceLocation attachmentLocation) {
+    default void setAttachmentLocation(CompoundTag attachmentCustomDataTag, Identifier attachmentLocation) {
         NBTUtils.setResourceLocation(attachmentCustomDataTag, LegacyAttachmentPropertyTag.ATTACHMENT_LOCATION_OLD1, attachmentLocation);
     }
 

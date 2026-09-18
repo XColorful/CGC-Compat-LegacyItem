@@ -5,7 +5,7 @@ import dev.xcolorful.customgun.core.api.item.ammo.AmmoNBTAccessor;
 import dev.xcolorful.customgun.core.api.resource.ResourceTag;
 import dev.xcolorful.customgun.core.util.NBTUtils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public interface LegacyAmmoNBTAccessor extends AmmoNBTAccessor {
@@ -15,12 +15,12 @@ public interface LegacyAmmoNBTAccessor extends AmmoNBTAccessor {
     // --------IAmmoNBTAccess--------
 
     @Override
-    default @NotNull ResourceLocation getAmmoLocation(CompoundTag ammoItemCustomDataTag) {
+    default @NotNull Identifier getAmmoLocation(CompoundTag ammoItemCustomDataTag) {
         var ammoLocation = NBTUtils.getResourceLocation(ammoItemCustomDataTag, LegacyAmmoPropertyTag.AMMO_LOCATION_OLD1);
         return ammoLocation != null ? ammoLocation : ResourceTag.NULL_LOCATION;
     }
     @Override
-    default void setAmmoLocation(CompoundTag ammoItemCustomDataTag, ResourceLocation ammoLocation) {
+    default void setAmmoLocation(CompoundTag ammoItemCustomDataTag, Identifier ammoLocation) {
         NBTUtils.setResourceLocation(ammoItemCustomDataTag, LegacyAmmoPropertyTag.AMMO_LOCATION_OLD1, ammoLocation);
     }
 
