@@ -7,11 +7,16 @@
 
 package dev.xcolorful.cgccompat.legacyitem.core.item.ammo;
 
+import dev.xcolorful.cgccompat.legacyitem.core.api.item.ammo.LegacyAmmoNBTAccessor;
 import dev.xcolorful.cgccompat.legacyitem.core.api.minecraft.item.LegacyItemType;
+import dev.xcolorful.customgun.core.api.item.ammo.AmmoNBTAccessor;
 import dev.xcolorful.customgun.core.init.registry.ModItems;
 import dev.xcolorful.customgun.core.item.ammo.AmmoItem;
 
-public class LegacyAmmoItem extends AmmoItem {
+/**
+ * {@link LegacyAmmoNBTAccessor}比{@link AmmoNBTAccessor}提供了更具体的接口（再次default重载），所以会优先使用
+ */
+public class LegacyAmmoItem extends AmmoItem implements LegacyAmmoNBTAccessor {
 
     protected LegacyAmmoItem(Properties properties) {
         super(properties);
