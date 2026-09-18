@@ -26,11 +26,14 @@ public interface LegacyAmmoNBTAccessor extends AmmoNBTAccessor {
 
     @Override
     default boolean hasInfiniteFeed(CompoundTag ammoItemCustomDataTag) {
-        return NBTUtils.getBoolean(ammoItemCustomDataTag, LegacyAmmoPropertyTag.INFINITE_FEED_OLD1);
+        return NBTUtils.getBoolean(ammoItemCustomDataTag, LegacyAmmoPropertyTag.INFINITE_FEED_OLD1) || this.isAlmightyAmmo(ammoItemCustomDataTag);
     }
     @Override
     default void setInfiniteFeed(CompoundTag ammoItemCustomDataTag, boolean infiniteFeed) {
         NBTUtils.setBoolean(ammoItemCustomDataTag, LegacyAmmoPropertyTag.INFINITE_FEED_OLD1, infiniteFeed);
+        if (!infiniteFeed) {
+            if (this.isAlmightyAmmo(ammoItemCustomDataTag)) this.setAlmightyAmmo(ammoItemCustomDataTag, false);
+        }
     }
 
     @Override
