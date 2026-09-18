@@ -8,6 +8,7 @@
 package dev.xcolorful.cgccompat.legacyitem.core.api.item.attachment;
 
 import dev.xcolorful.cgccompat.legacyitem.core.api.item.LegacyAttachmentPropertyTag;
+import dev.xcolorful.customgun.core.api.item.AttachmentProperty;
 import dev.xcolorful.customgun.core.api.item.attachment.AttachmentCategory;
 import dev.xcolorful.customgun.core.api.item.attachment.AttachmentNBTAccessor;
 import dev.xcolorful.customgun.core.api.resource.ResourceApi;
@@ -44,9 +45,13 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
 //    }
 //    读的时候优先直读（根目录），其次额外检测tag
 //    写的时候不增加层级（防止反复装卸配件无限扩大NBT）
+//    LegacyGunItem卸下来的配件是Legacy的，还需要防止装上新的配件再卸下后丢信息，所以还要先检查新格式；但是不按新格式写，避免旧基础设施识别不到
     @Override
     default @NotNull ResourceLocation getAttachmentLocation(CompoundTag attachmentCustomDataTag) {
-        var attachmentLocation = NBTUtils.getResourceLocation(attachmentCustomDataTag, LegacyAttachmentPropertyTag.ATTACHMENT_LOCATION_OLD1);
+        var attachmentLocation = NBTUtils.getResourceLocation(attachmentCustomDataTag, AttachmentProperty.ATTACHMENT_LOCATION.getTagName());
+        if (attachmentLocation != null) return attachmentLocation;
+
+        attachmentLocation = NBTUtils.getResourceLocation(attachmentCustomDataTag, LegacyAttachmentPropertyTag.ATTACHMENT_LOCATION_OLD1);
         if (attachmentLocation != null) return attachmentLocation;
 
         @Nullable CompoundTag itemTag = NBTUtils.getCompoundTag(attachmentCustomDataTag, LegacyAttachmentPropertyTag.TAG);
@@ -75,6 +80,10 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
 
     @Override
     default int getScopeViewIndex(CompoundTag attachmentCustomDataTag) {
+        if (NBTUtils.hasKey(attachmentCustomDataTag, AttachmentProperty.SCOPE_VIEW_INDEX.getTagName())) {
+            return NBTUtils.getInt(attachmentCustomDataTag, AttachmentProperty.SCOPE_VIEW_INDEX.getTagName());
+        }
+
         if (NBTUtils.hasKey(attachmentCustomDataTag, LegacyAttachmentPropertyTag.SCOPE_VIEW_INDEX_OLD1)) {
             return NBTUtils.getInt(attachmentCustomDataTag, LegacyAttachmentPropertyTag.SCOPE_VIEW_INDEX_OLD1);
         }
@@ -89,6 +98,10 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
 
     @Override
     default boolean hasLaserColor(CompoundTag attachmentCustomDataTag) {
+        if (NBTUtils.hasKey(attachmentCustomDataTag, AttachmentProperty.LASER_COLOR.getTagName())) {
+            return true;
+        }
+
         if (NBTUtils.hasKey(attachmentCustomDataTag, LegacyAttachmentPropertyTag.LASER_COLOR_OLD1)) {
             return true;
         }
@@ -98,6 +111,10 @@ public interface LegacyAttachmentNBTAccessor extends AttachmentNBTAccessor {
     }
     @Override
     default int getLaserColor(CompoundTag attachmentCustomDataTag) {
+        if (NBTUtils.hasKey(attachmentCustomDataTag, AttachmentProperty.LASER_COLOR.getTagName())) {
+            return NBTUtils.getInt(attachmentCustomDataTag, AttachmentProperty.LASER_COLOR.getTagName());
+        }
+
         if (NBTUtils.hasKey(attachmentCustomDataTag, LegacyAttachmentPropertyTag.LASER_COLOR_OLD1)) {
             return NBTUtils.getInt(attachmentCustomDataTag, LegacyAttachmentPropertyTag.LASER_COLOR_OLD1);
         }
