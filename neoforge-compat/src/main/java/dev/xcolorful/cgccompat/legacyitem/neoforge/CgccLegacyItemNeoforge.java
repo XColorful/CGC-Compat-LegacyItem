@@ -22,7 +22,7 @@ public class CgccLegacyItemNeoforge {
     public CgccLegacyItemNeoforge(IEventBus modEventBus) {
         CgccLegacyItemNeoforge.registrarFactory = new NeoRegistrarFactory();
         CgccLegacyItemNeoforge.mcRegistry = new NeoRegistry();
-        Dist dist = FMLLoader.getDist();
+        Dist dist = FMLLoader.getCurrent().getDist();
         McSide mcSide = dist.isClient() ? McSide.CLIENT : McSide.DEDICATED_SERVER;
 
         CgccLegacyItem.init(CgccLegacyItemNeoforge.registrarFactory, CgccLegacyItemNeoforge.mcRegistry);
