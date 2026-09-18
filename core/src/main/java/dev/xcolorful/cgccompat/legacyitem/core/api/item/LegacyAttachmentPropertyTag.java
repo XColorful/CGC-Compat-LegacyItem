@@ -2,6 +2,8 @@ package dev.xcolorful.cgccompat.legacyitem.core.api.item;
 
 public class LegacyAttachmentPropertyTag {
 
+    public static final String TAG = "tag";
+
     // --------IAttachmentDataAccess--------
     public static final String ATTACHMENT_LOCATION_OLD1 = "AttachmentId";
 

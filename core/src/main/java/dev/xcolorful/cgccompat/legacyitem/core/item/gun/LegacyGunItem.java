@@ -15,10 +15,14 @@ import dev.xcolorful.customgun.CustomGun;
 import dev.xcolorful.customgun.client.api.resource.ClientResourceApi;
 import dev.xcolorful.customgun.client.resource.instance.assets.GunDisplayInstance;
 import dev.xcolorful.customgun.client.resource.instance.data.ClientAttachmentIndexInstance;
+import dev.xcolorful.customgun.core.api.item.AttachmentProperty;
 import dev.xcolorful.customgun.core.api.item.IAttachment;
+import dev.xcolorful.customgun.core.api.item.IGun;
 import dev.xcolorful.customgun.core.api.item.attachment.AttachmentCategory;
 import dev.xcolorful.customgun.core.api.item.attachment.IAttachmentGetter;
+import dev.xcolorful.customgun.core.api.item.builder.AttachmentBuilder;
 import dev.xcolorful.customgun.core.api.item.gun.FireModeType;
+import dev.xcolorful.customgun.core.api.item.gun.IGunGetter;
 import dev.xcolorful.customgun.core.api.resource.ResourceApi;
 import dev.xcolorful.customgun.core.api.resource.ResourceTag;
 import dev.xcolorful.customgun.core.developer.PlannedRefactor;
@@ -227,6 +231,50 @@ public class LegacyGunItem extends GunItem {
     }
 
     // --------IGunAttachmentDataAccess--------
+
+    @Override
+    public @NotNull ItemStack getAttachment(ItemStack gunItem, AttachmentCategory attachmentCategory) {
+        @Nullable CompoundTag attachmentCustomDataTag = this.getAttachmentCustomDataTag(gunItem, attachmentCategory);
+
+        if (attachmentCustomDataTag == null) {
+            return ItemStack.EMPTY;
+        }
+
+        return AttachmentBuilder.create(dev.xcolorful.cgccompat.legacyitem.core.init.registry.ModItems.ATTACHMENT.get())
+                // 先写已有的NBT
+                .setCustomDataTag(attachmentCustomDataTag)
+                // 配件类型在gun nbt的key
+                .setProperty(AttachmentProperty.ATTACHMENT_CATEGORY,
+                        AttachmentCategory.class,
+                        attachmentCategory)
+                .build();
+    }
+    @Override
+    public @NotNull ItemStack getBuiltinAttachment(ItemStack gunItem, AttachmentCategory attachmentCategory) {
+        @Nullable IGun iGun = IGunGetter.fromItemStack(gunItem);
+        if (iGun == null) return ItemStack.EMPTY;
+
+        @Nullable GunIndexInstance gunIndexInstance = ResourceApi.getGunIndexInstance(iGun.getGunLocation(gunItem));
+        if (gunIndexInstance == null) {
+            return ItemStack.EMPTY;
+        }
+
+        var builtinAttachments = gunIndexInstance.getGunData().getBuiltinAttachments();
+        if (builtinAttachments.containsKey(attachmentCategory)) {
+            return AttachmentBuilder.create(dev.xcolorful.cgccompat.legacyitem.core.init.registry.ModItems.ATTACHMENT.get())
+                    // 配件ResourceLocation
+                    .setProperty(AttachmentProperty.ATTACHMENT_LOCATION,
+                            ResourceLocation.class,
+                            builtinAttachments.get(attachmentCategory))
+                    // 配件类型
+                    .setProperty(AttachmentProperty.ATTACHMENT_CATEGORY,
+                            AttachmentCategory.class,
+                            attachmentCategory)
+                    .build();
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
 
     @Override
     public @Nullable CompoundTag getAttachmentCustomDataTag(ItemStack gunItem, AttachmentCategory attachmentCategory) {
