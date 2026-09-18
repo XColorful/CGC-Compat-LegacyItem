@@ -7,11 +7,12 @@
 
 package dev.xcolorful.cgccompat.legacyitem.core.item.ammobox;
 
+import dev.xcolorful.cgccompat.legacyitem.core.api.item.ammobox.LegacyAmmoBoxDataAccessor;
 import dev.xcolorful.cgccompat.legacyitem.core.api.minecraft.item.LegacyItemType;
 import dev.xcolorful.customgun.core.init.registry.ModItems;
 import dev.xcolorful.customgun.core.item.ammobox.AmmoBoxItem;
 
-public class LegacyAmmoBoxItem extends AmmoBoxItem {
+public class LegacyAmmoBoxItem extends AmmoBoxItem implements LegacyAmmoBoxDataAccessor {
 
     protected LegacyAmmoBoxItem(Properties properties) {
         super(properties);
