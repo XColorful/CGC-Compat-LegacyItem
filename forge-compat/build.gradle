@@ -1,8 +1,8 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
@@ -79,7 +79,7 @@ dependencies {
 tasks.named('jar', Jar).configure {
     archiveBaseName.set(mod_id)
     archiveVersion.set(mod_version)
-    archiveClassifier.set("${forge_id}-${minecraft_support_version}")
+    archiveClassifier.set("${forge_id}-${minecraft_version}")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from project(':core').sourceSets.main.output
 }
@@ -88,6 +88,6 @@ tasks.matching { it.name == 'remapJar' || it.name == 'reobfJar' }.configureEach 
     if (it.hasProperty("archiveClassifier")) {
         it.archiveBaseName.set(mod_id)
         it.archiveVersion.set(mod_version)
-        it.archiveClassifier.set("${forge_id}-${minecraft_support_version}")
+        it.archiveClassifier.set("${forge_id}-${minecraft_version}")
     }
 }
