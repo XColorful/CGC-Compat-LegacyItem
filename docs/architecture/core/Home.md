@@ -20,6 +20,15 @@
 ### 物品
 > _./core/item_
 
+- Ammo：子弹
+	- LegacyAmmoItem：旧子弹物品
+- AmmoBox：子弹盒
+	- LegacyAmmoBoxItem：旧子弹盒物品
+- Attachment：配件
+	- LegacyAttachmentItem：旧配件物品
+- Gun：枪械
+	- LegacyGunItem：旧枪械物品
+
 # English
 
 > This document serves as a navigation index for the project architecture
@@ -40,3 +49,12 @@ Module division based on the `dev.xcolorful.cgccompat.legacyitem.core` top-level
 ### Item
 > _./core/item_
 
+- Ammo:
+	- LegacyAmmoItem: Legacy ammo item
+- AmmoBox:
+	- LegacyAmmoBoxItem: Legacy ammo box item
+- Attachment:
+	- LegacyAttachmentItem: Legacy attachment item
+	- modifier: Attachment modifier
+- Gun:
+	- LegacyGunItem: Legacy gun item
