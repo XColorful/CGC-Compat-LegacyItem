@@ -24,12 +24,6 @@
 1. 注册物品：`tacz:modern_kinetic_gun`、`tacz:attachment`、`tacz:ammo`、`tacz:ammo_box`
 2. 使用旧 NBT 标签
 
-## 内容披露
-
-### 衍生内容
-
-- [自定义枪械永续](https://github.com/XColorful/Custom-Gun-Continued)：本模组是采用 [GPL-3.0-only](https://www.gnu.org/licenses/gpl-3.0.txt) 许可证的[自定义枪械永续](https://github.com/XColorful/Custom-Gun-Continued)的兼容模组
-
 ## 许可证
 
 - 代码：[GPL-3.0-only](https://www.gnu.org/licenses/gpl-3.0.txt)
@@ -55,12 +49,6 @@ This mod is a compatibility mod for [Custom Gun Continued](https://github.com/XC
 This mod does two things:
 1. Register items: `tacz:modern_kinetic_gun`, `tacz:attachment`, `tacz:ammo`, `tacz:ammo_box`
 2. Use legacy NBT tags
-
-## Content disclosures
-
-### Derivative content
-
-- [Custom Gun Continued](https://github.com/XColorful/Custom-Gun-Continued): This mod is a compatibility mod for [Custom Gun Continued](https://github.com/XColorful/Custom-Gun-Continued), licensed under [GPL-3.0-only](https://www.gnu.org/licenses/gpl-3.0.txt)
 
 ## License
 
